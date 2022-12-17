@@ -1,0 +1,13 @@
+podMonitor:
+
+  # enabled determines whether a podMonitor should deployed to scrape the eck metrics.
+  # This requires the prometheus operator and the config.metricsPort not to be 0
+  enabled: true
+
+  namespace: monitoring
+
+  # interval specifies the interval at which metrics should be scraped
+  interval: 5m
+
+  scrapeTimeout: 30s
+

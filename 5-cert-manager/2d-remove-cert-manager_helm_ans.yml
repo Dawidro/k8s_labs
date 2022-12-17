@@ -1,0 +1,20 @@
+
+---
+- hosts: "master"
+  tasks:
+   - name: Download cert-manager CRDs manifest to the cluster.
+     ansible.builtin.get_url:
+       url: https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.crds.yaml
+       dest: ~/cert-manager-crds.yml
+       mode: '0664'
+
+   - name: Apply cert-manager CDRs manifest to the cluster.
+     kubernetes.core.k8s:
+       state: absent
+       src: ~/cert-manager-crds.yml
+
+   - name: Install cert-manager Charts
+     kubernetes.core.helm:
+       name: cert-manager
+       namespace: cert-manager
+       state: absent

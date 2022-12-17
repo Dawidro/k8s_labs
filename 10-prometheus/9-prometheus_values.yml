@@ -1,0 +1,65 @@
+alertmanager:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+    hosts: ['trantor.zapto.org']
+    paths: ['/alertmanager(/|$)(.*)']
+    tls:
+    - secretName: ssl-cert-production
+      hosts:
+      - trantor.zapto.org
+
+  alertmanagerSpec:
+    externalUrl: https://trantor.zapto.org/alertmanager
+    routePrefix: "/"
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: nfs-alertmanager
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+
+grafana:
+  env:
+    GF_SERVER_ROOT_URL: https://trantor.zapto.org/grafana
+    GF_SERVER_SERVE_FROM_SUB_PATH: 'true'
+  adminPassword: prom-operator
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+    hosts: ['trantor.zapto.org']
+    path: "/grafana(/|$)(.*)"
+    tls:
+    - secretName: ssl-cert-production
+      hosts:
+      - trantor.zapto.org
+
+prometheus:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts: ['trantor.zapto.org']
+    paths: ['/prometheus'] #
+    tls:
+    - secretName: ssl-cert-production
+      hosts:
+      - trantor.zapto.org
+
+  prometheusSpec:
+    externalUrl: "https://trantor.zapto.org/prometheus"
+    routePrefix: /prometheus
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: nfs-prometheus
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi

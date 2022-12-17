@@ -1,0 +1,29 @@
+---
+- hosts: "master"
+  tasks:
+   - name: install pre-requisites
+     pip:
+       name:
+         - openshift
+         - pyyaml
+         - kubernetes 
+
+#   - name: Download cert-manager CRDs manifest to the cluster.
+#     ansible.builtin.get_url:
+#       url: https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.crds.yaml
+#       dest: ~/cert-manager-crds.yml
+#       mode: '0664'
+
+#   - name: Apply cert-manager CDRs manifest to the cluster.
+#     kubernetes.core.k8s:
+#       state: present
+#       src: ~/cert-manager-crds.yml
+
+   - name: Install cert-manager Charts
+     kubernetes.core.helm:
+       name: cert-manager
+       namespace: cert-manager
+       create_namespace: true
+       chart_ref: cert-manager/cert-manager
+       values_files:
+         - /home/vmadmin/helm_ansible/9-cert-manager_values.yml

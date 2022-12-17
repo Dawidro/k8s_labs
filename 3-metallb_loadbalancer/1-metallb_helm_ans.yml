@@ -1,0 +1,11 @@
+---
+- hosts: "master"
+  tasks:
+   - name: Install metallb Charts
+     kubernetes.core.helm:
+       name: metallb
+       namespace: metallb-system
+       create_namespace: true
+       chart_ref: metallb/metallb
+       values_files:
+         - /home/vmadmin/helm_ansible/9-metallb_values.yml

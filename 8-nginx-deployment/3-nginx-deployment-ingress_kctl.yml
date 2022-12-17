@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-resource-1
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - trantor.zapto.org
+    secretName: ssl-cert-production
+
+  rules:
+  - host: trantor.zapto.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-deploy-main
+            port:
+              number: 80

@@ -1,0 +1,11 @@
+---
+- hosts: "master"
+  tasks:
+   - name: Install prometheus Charts
+     kubernetes.core.helm:
+       name: kube-prometheus-stack
+       namespace: monitoring
+       create_namespace: true
+       chart_ref: prometheus-community/kube-prometheus-stack
+       values_files:
+         - /home/vmadmin/helm_ansible/9-prometheus-values.yml

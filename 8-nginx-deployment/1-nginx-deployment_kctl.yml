@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: nginx
+  name: nginx-deploy-main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nginx-main
+  template:
+    metadata:
+      labels:
+        run: nginx-main
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9113'
+    spec:
+      volumes:
+      - name: www
+        persistentVolumeClaim:
+          claimName: nfs-pvc-nginx
+      containers:
+      - image: nginx
+        name: nginx
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
