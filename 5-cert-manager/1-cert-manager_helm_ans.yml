@@ -26,4 +26,4 @@
        create_namespace: true
        chart_ref: cert-manager/cert-manager
        values_files:
-         - /home/vmadmin/helm_ansible/9-cert-manager_values.yml
+         - /home/vmadmin/k8s_labs/5-cert-manager/9-cert-manager_values.yml

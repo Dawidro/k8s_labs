@@ -7,7 +7,7 @@ spec:
   type: metricbeat
   version: 8.5.2
   elasticsearchRef:
-    name: elasticsearch
+    name: elastic-cluster
   config:
     metricbeat:
       autodiscover:
