@@ -8,4 +8,4 @@
        create_namespace: true
        chart_ref: prometheus-community/kube-prometheus-stack
        values_files:
-         - /home/vmadmin/k8s_labs/10-prometheus/9-prometheus_values.yml
+         - /home/vmadmin/k8s_labs/11-prometheus/9-prometheus_values.yml

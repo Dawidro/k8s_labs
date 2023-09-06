@@ -8,4 +8,4 @@
        create_namespace: true
        chart_ref: eck/eck-operator
        values_files:
-         - /home/vmadmin/k8s_labs/11-eck/9-eck-operator_values.yml
+         - /home/vmadmin/k8s_labs/12-eck/9-eck-operator_values.yml

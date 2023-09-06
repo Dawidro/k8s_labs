@@ -15,4 +15,4 @@
        create_namespace: true
        chart_ref: cert-manager/cert-manager
        values_files:
-         - /home/vmadmin/k8s_labs/5-cert-manager/9-cert-manager_values.yml
+         - /home/vmadmin/k8s_labs/6-cert-manager/9-cert-manager_values.yml
