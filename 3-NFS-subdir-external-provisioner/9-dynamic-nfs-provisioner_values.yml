@@ -17,7 +17,7 @@ nfs:
 
 # For creating the StorageClass automatically:
 storageClass:
-  create: false
+  create: true
 
   # Set a provisioner name. If unset, a name will be generated.
   # provisionerName:
@@ -28,7 +28,7 @@ storageClass:
 
   # Set a StorageClass name
   # Ignored if storageClass.create is false
-  name: nfs-client
+  name: nfs-dyn-storageclass
 
   # Allow volume to be expanded dynamically
   allowVolumeExpansion: true
