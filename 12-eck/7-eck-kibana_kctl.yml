@@ -1,0 +1,21 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana
+  namespace: elastic-system
+spec:
+  version: 8.5.2
+  count: 1
+  elasticsearchRef:
+    name: elastic-cluster
+  config:
+    server.rewriteBasePath: false
+    server.basePath: /kibana
+  http:
+    service:
+      spec:
+        type: ClusterIP
+        ports:
+          - port: 443
+            targetPort: 5601
+            protocol: TCP

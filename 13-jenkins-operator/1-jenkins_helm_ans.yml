@@ -1,0 +1,11 @@
+---
+- hosts: "master"
+  tasks:
+   - name: Install jenknins Charts
+     kubernetes.core.helm:
+       name: jenkins-operator
+       namespace: jenkins-operator
+       create_namespace: true
+       chart_ref: jenkins-operator/jenkins-operator
+       values_files:
+         - /home/vmadmin/k8s_labs/12-jenkins-operator/9-jenkins_values.yml

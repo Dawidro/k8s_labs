@@ -1,0 +1,86 @@
+---
+- hosts: "master"
+  become_method: sudo
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: add Helm apt-key
+      apt_key:
+        url: https://baltocdn.com/helm/signing.asc
+        state: present
+
+    - name: add Helm repository apt repository
+      apt_repository:
+        repo: deb https://baltocdn.com/helm/stable/debian/ all main
+        state: present
+        filename: helm-stable-debian
+        update_cache: yes
+
+    - name: Install helm binaries
+      apt:
+        name: "helm"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - helm
+
+- hosts: "master"
+  vars:
+    helm_chart_bitnami: "https://charts.bitnami.com/bitnami"
+    helm_chart_prometheus: "https://prometheus-community.github.io/helm-charts"
+    helm_chart_openelb: "https://charts.kubesphere.io/test"
+    helm_chart_ingress: "https://kubernetes.github.io/ingress-nginx"
+    helm_chart_dashboard: "https://kubernetes.github.io/dashboard"
+    helm_chart_metallb: "https://metallb.github.io/metallb"
+    helm_chart_cert_manager: "https://charts.jetstack.io"
+    helm_chart_kubed: "https://charts.appscode.com/stable/"
+    helm_chart_elastic: "https://helm.elastic.co"
+    helm_chart_jenkins: "https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/master/chart"
+    helm_nfs_subdir_external_provisioner: "https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner"
+
+  tasks:
+    - name: add Helm repository for bitmai
+      kubernetes.core.helm_repository:
+        name: bitnami
+        repo_url: "{{ helm_chart_bitnami }}"
+    - name: add Helm repository for Prometheus
+      kubernetes.core.helm_repository:
+        name: prometheus-community
+        repo_url: "{{ helm_chart_prometheus }}"
+    - name: add Helm repository for OpenELB
+      kubernetes.core.helm_repository:
+        name: openelb
+        repo_url: "{{ helm_chart_openelb }}"
+    - name: add Helm repository for Nginx
+      kubernetes.core.helm_repository:
+        name: ingress-nginx
+        repo_url: "{{ helm_chart_ingress }}"
+    - name: add Helm repository for Dashboard
+      kubernetes.core.helm_repository:
+        name: kubernetes-dashboard
+        repo_url: "{{ helm_chart_dashboard }}"
+    - name: add Helm repository for MetalLB
+      kubernetes.core.helm_repository:
+        name: metallb
+        repo_url: "{{ helm_chart_metallb }}"
+    - name: add Helm repository for Cert-Manager
+      kubernetes.core.helm_repository:
+        name: cert-manager
+        repo_url: "{{ helm_chart_cert_manager }}"
+    - name: add Helm repository for Kubed
+      kubernetes.core.helm_repository:
+        name: kubed
+        repo_url: "{{ helm_chart_kubed }}"
+    - name: add Helm repository for ECK
+      kubernetes.core.helm_repository:
+        name: eck
+        repo_url: "{{ helm_chart_elastic }}"
+    - name: add Helm repository for Jenkins Operator
+      kubernetes.core.helm_repository:
+        name: jenkins
+        repo_url: "{{ helm_chart_jenkins }}"
+    - name: add Helm repository for NFS Subdir External Provisioner
+      kubernetes.core.helm_repository:
+        name: nfs-subdir-external-provisioner
+        repo_url: "{{ helm_nfs_subdir_external_provisioner}}"

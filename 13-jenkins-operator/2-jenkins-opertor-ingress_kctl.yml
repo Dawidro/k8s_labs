@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: jenkins-opertor
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - example.com
+    secretName: ssl-cert-production
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - path: /jenkins(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: jenkins-http
+            port:
+              number: 443
