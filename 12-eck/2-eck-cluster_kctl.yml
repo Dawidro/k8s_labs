@@ -7,7 +7,7 @@ spec:
   version: 8.5.2
   nodeSets:
   - name: default
-    count: 1
+    count: 2
     config:
       node.store.allow_mmap: false
       network.host: 0.0.0.0
@@ -16,8 +16,8 @@ spec:
         name: elasticsearch-data
       spec:
         accessModes:
-        - ReadWriteOnce
+        - ReadWriteMany
         resources:
           requests:
-            storage: 5Gi
-        storageClassName: elasticsearch-data
+            storage: 2Gi
+        storageClassName: nfs-dyn-storageclass
