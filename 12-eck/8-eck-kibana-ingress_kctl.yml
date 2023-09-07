@@ -19,7 +19,7 @@ spec:
       paths:
       paths:
       - path: /kibana(/|$)(.*)
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: kibana-kb-http

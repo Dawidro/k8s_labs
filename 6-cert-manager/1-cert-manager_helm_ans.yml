@@ -1,13 +1,6 @@
 ---
 - hosts: "master"
   tasks:
-#   - name: install pre-requisites
-#     pip:
-#       name:
-#         - openshift
-#         - pyyaml
-#         - kubernetes
-
    - name: Install cert-manager Charts
      kubernetes.core.helm:
        name: cert-manager

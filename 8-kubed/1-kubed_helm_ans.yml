@@ -7,5 +7,3 @@
        namespace: kube-system
        create_namespace: true
        chart_ref: kubed/kubed
-#       values_files:
-#         - /home/vmadmin/helm_ansible/certman_values.yml

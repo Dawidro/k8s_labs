@@ -1,6 +1,4 @@
 ---
-# permissions needed for metricbeat
-# source: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-module-kubernetes.html
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
