@@ -78,7 +78,7 @@
         repo_url: "{{ helm_chart_elastic }}"
     - name: add Helm repository for Jenkins Operator
       kubernetes.core.helm_repository:
-        name: jenkins
+        name: jenkins-operator
         repo_url: "{{ helm_chart_jenkins }}"
     - name: add Helm repository for NFS Subdir External Provisioner
       kubernetes.core.helm_repository:

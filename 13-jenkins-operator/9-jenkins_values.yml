@@ -33,12 +33,13 @@ jenkins:
   # image is the name (and tag) of the Jenkins instance
   # Default: jenkins/jenkins:lts
   # It's recommended to use LTS (tag: "lts") version
-  image: jenkins/jenkins:2.387.1-lts
+  image: jenkins/jenkins:2.319.3-lts
 
   # env contains jenkins container environment variables
   env:
   - name: JENKINS_OPTS
     value: --prefix=/jenkins
+
   # imagePullPolicy defines policy for pulling images
   imagePullPolicy: Always
 
@@ -86,23 +87,22 @@ jenkins:
   #
   # Example:
   #
-  basePlugins:
-  - name: kubernetes
-    version: 3896.v19b_160fd9589
-  - name: workflow-job
-    version: 1284.v2fe8ed4573d4
-  - name: workflow-aggregator
-    version: 596.v8c21c963d92d
-  - name: git
-    version: 5.0.0
-  - name: job-dsl
-    version: "1.82"
-  - name: configuration-as-code
-    version: 1569.vb_72405b_80249
-  - name: kubernetes-credentials-provider
-    version: 1.209.v862c6e5fb_1ef
-
-  # basePlugins: []
+  # basePlugins:
+  # - name: configuration-as-code
+  #   version: "1346.ve8cfa_3473c94"
+  # - name: git
+  #   version: 4.11.3
+  # - name: job-dsl
+  #   version: "1.78.1"
+  # - name: kubernetes
+  #   version: 1.31.3
+  # - name: kubernetes-credentials-provider
+  #   version: 0.20
+  # - name: workflow-aggregator
+  #   version: "2.6"
+  # - name: workflow-job
+  #   version: "1145.v7f2433caa07f"
+  basePlugins: []
 
   # plugins are plugins required by the user
   # You can define plugins here
@@ -114,12 +114,6 @@ jenkins:
   # - name: simple-theme-plugin
   #   version: "0.6"
   plugins: []
-
-  # latestPlugins: Allow to override jenkins-plugin-cli default behavior
-  # while downloading the plugin and dependencies
-  # see: https://github.com/jenkinsci/plugin-installation-manager-tool#cli-options
-  # default to true
-  latestPlugins: true
 
   # seedJobs is placeholder for jenkins seed jobs
   # For seed job creation tutorial, check https://jenkinsci.github.io/kubernetes-operator/docs/getting-started/latest/configuring-seed-jobs-and-pipelines/
@@ -133,7 +127,7 @@ jenkins:
   #    repositoryUrl: https://github.com/jenkinsci/kubernetes-operator.git
   seedJobs: []
 
-  # SeedJobAgentImage defines the image that will be used by the seed job agent. If not defined jenkins/inbound-agent:4.10-3 will be used.
+  # SeedJobAgentImage defines the image that will be used by the seed job agent. If not defined jenkins/inbound-agent:4.9-1 will be used.
   seedJobAgentImage: ""
 
   # Resource limit/request for Jenkins
@@ -157,8 +151,10 @@ jenkins:
   # Note that attempting to overwrite default mount settings for restricted,
   # non-configurable volumeMounts will result in Operator error
   # See https://jenkinsci.github.io/kubernetes-operator/docs/installation/#note-on-restricted-jenkins-controller-pod-volumemounts for details
-  volumeMounts: []
-
+  volumeMounts:
+    - name: backup # PVC volume where backups will be stored
+      persistentVolumeClaim:
+        claimName: jenkins-backup
   # defines authorization strategy of the operator for the Jenkins API
   authorizationStrategy: createUser
 
@@ -171,6 +167,7 @@ jenkins:
   # See https://jenkinsci.github.io/kubernetes-operator/docs/getting-started/latest/schema/#github.com/jenkinsci/kubernetes-operator/pkg/apis/jenkins/v1alpha2.Service for details
   service:
     port: 443
+
   # slave Jenkins service
   # See https://jenkinsci.github.io/kubernetes-operator/docs/getting-started/latest/schema/#github.com/jenkinsci/kubernetes-operator/pkg/apis/jenkins/v1alpha2.Service for details
   #slaveService:
@@ -208,8 +205,8 @@ jenkins:
     enabled: true
 
     # image used by backup feature
-    # By default using prebuilt backup PVC image
-    image: quay.io/jenkins-kubernetes-operator/backup-pvc:v0.2.1
+    # By default using prebuilt backup PVC image by VirtusLab
+    image: virtuslab/jenkins-operator-backup-pvc:v0.1.0
 
     # containerName is backup container name
     containerName: backup
@@ -293,7 +290,7 @@ operator:
   replicaCount: 1
 
   # image is the name (and tag) of the Jenkins Operator image
-  image: quay.io/jenkins-kubernetes-operator/operator:9fd053b
+  image: virtuslab/jenkins-operator:v0.7.1
 
   # imagePullPolicy defines policy for pulling images
   imagePullPolicy: IfNotPresent
@@ -320,7 +317,7 @@ webhook:
     # validity of the certificate
     duration: 2160h
 
-    # time after which the certificate will be automatically renewed
+    # time after which the certificate will be automatically renewed 
     renewbefore: 360h
   # enable or disable the validation webhook
   enabled: false

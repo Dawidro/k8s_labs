@@ -8,4 +8,4 @@
        create_namespace: true
        chart_ref: jenkins-operator/jenkins-operator
        values_files:
-         - /home/vmadmin/k8s_labs/12-jenkins-operator/9-jenkins_values.yml
+         - /home/vmadmin/k8s_labs/13-jenkins-operator/9-jenkins_values.yml

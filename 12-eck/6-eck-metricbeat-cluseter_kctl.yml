@@ -6,7 +6,7 @@ metadata:
   namespace: elastic-system
 spec:
   type: metricbeat
-  version: 8.5.2
+  version: 8.9.2
   elasticsearchRef:
     name: elastic-cluster
   config:
