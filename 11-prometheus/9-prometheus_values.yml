@@ -1,11 +1,13 @@
 alertmanager:
   ingress:
     enabled: true
+    ingressClassName: nginx
     annotations:
-      kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/rewrite-target: /$2
-    hosts: ['example.com']
-    paths: ['/alertmanager(/|$)(.*)']
+    hosts:
+    - example.com
+    paths:
+    - /alertmanager(/|$)(.*)
     tls:
     - secretName: ssl-cert-production
       hosts:
@@ -13,28 +15,28 @@ alertmanager:
 
   alertmanagerSpec:
     externalUrl: https://example.com/alertmanager
-    routePrefix: "/"
+    routePrefix: /
     storage:
       volumeClaimTemplate:
         spec:
           storageClassName: nfs-alertmanager
-          accessModes: ["ReadWriteOnce"]
+          accessModes:
+          - ReadWriteMany
           resources:
             requests:
               storage: 5Gi
-
 grafana:
   env:
     GF_SERVER_ROOT_URL: https://example.com/grafana
-    GF_SERVER_SERVE_FROM_SUB_PATH: 'true'
   adminPassword: prom-operator
   ingress:
     enabled: true
+    ingressClassName: nginx
     annotations:
-      kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/rewrite-target: /$2
-    hosts: ['example.com']
-    path: "/grafana(/|$)(.*)"
+    hosts:
+    - example.com
+    path: /grafana(/|$)(.*)
     tls:
     - secretName: ssl-cert-production
       hosts:
@@ -43,10 +45,11 @@ grafana:
 prometheus:
   ingress:
     enabled: true
-    annotations:
-      kubernetes.io/ingress.class: nginx
-    hosts: ['example.com']
-    paths: ['/prometheus'] #
+    ingressClassName: nginx
+    hosts:
+    - example.com
+    paths:
+    - /prometheus
     tls:
     - secretName: ssl-cert-production
       hosts:
@@ -54,12 +57,13 @@ prometheus:
 
   prometheusSpec:
     externalUrl: "https://example.com/prometheus"
-    routePrefix: /prometheus
+    routePrefix: "/prometheus"
     storageSpec:
       volumeClaimTemplate:
         spec:
           storageClassName: nfs-prometheus
-          accessModes: ["ReadWriteOnce"]
+          accessModes:
+            - ReadWriteMany
           resources:
             requests:
               storage: 5Gi
