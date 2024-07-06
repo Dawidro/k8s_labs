@@ -1,66 +1,14 @@
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: nfs-pv-nginx
+  name: nfs-pvc-nginx
+  namespace: default
 spec:
-  capacity:
-    storage: 10Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
   storageClassName: nfs-nginx
-  nfs:
-    path: /export/kubernetes/nginx_main
-    server: 192.168.0.1
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: nfs-pv-prometheus
-spec:
-  capacity:
-    storage: 10Gi
-  volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
-    - ReadWriteOnce
-  storageClassName: nfs-prometheus
-  nfs:
-    path: /export/kubernetes/prometheus
-    server: 192.168.0.1
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: nfs-pv-alertmanager
-spec:
-  capacity:
-    storage: 10Gi
+    - ReadOnlyMany
   volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-    - ReadWriteOnce
-  storageClassName: nfs-alertmanager
-  nfs:
-    path: /export/kubernetes/alertmanager
-    server: 192.168.0.1
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: postgres-pv
-spec:
-  capacity:
-    storage: 10Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-    - ReadWriteOnce
-  storageClassName: nfs-postgres
-  nfs:
-    path: /export/kubernetes/postgres
-    server: 192.168.0.1
+  resources:
+    requests:
+      storage: 1Gi

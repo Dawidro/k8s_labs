@@ -34,6 +34,7 @@
     helm_chart_dashboard: "https://kubernetes.github.io/dashboard"
     helm_chart_metallb: "https://metallb.github.io/metallb"
     helm_chart_cert_manager: "https://charts.jetstack.io"
+    helm_chart_reflector: "https://emberstack.github.io/helm-charts"
     helm_chart_kubed: "https://charts.appscode.com/stable/"
     helm_chart_elastic: "https://helm.elastic.co"
     helm_chart_jenkins: "https://raw.githubusercontent.com/jenkinsci/kubernetes-operator/master/chart"
@@ -68,6 +69,10 @@
       kubernetes.core.helm_repository:
         name: cert-manager
         repo_url: "{{ helm_chart_cert_manager }}"
+    - name: add Helm repository for Reflector
+      kubernetes.core.helm_repository:
+        name: emberstack
+        repo_url: "{{ helm_chart_reflector }}"
     - name: add Helm repository for Kubed
       kubernetes.core.helm_repository:
         name: kubed

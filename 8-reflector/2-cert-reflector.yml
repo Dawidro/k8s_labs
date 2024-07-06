@@ -1,0 +1,18 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ssl-cert-all
+  namespace: cert-manager
+spec:
+  secretName: ssl-cert-production
+  commonName: k8s.crudevops.zapto.org
+  issuerRef:
+    name: ssl-cert
+    kind: ClusterIssuer
+    group: cert-manager.io
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true" # Auto create reflection for matching namespaces
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "default,kubernetes-dashboard,monitoring,elastic-system,jenkins-operator"

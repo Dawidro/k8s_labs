@@ -7,22 +7,8 @@ metadata:
 spec:
   storageClassName: nfs-nginx
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
+  volumeMode: Filesystem
   resources:
     requests:
       storage: 1Gi
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nfs-pvc-postgres
-  namespace: default
-spec:
-  storageClassName: nfs-postgres
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
-

@@ -1,0 +1,9 @@
+---
+- hosts: "master"
+  tasks:
+   - name: Install Reflector Charts
+     kubernetes.core.helm:
+       name: reflector
+       namespace: reflector
+       create_namespace: true
+       chart_ref: emberstack/reflector

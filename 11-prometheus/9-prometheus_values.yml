@@ -5,29 +5,30 @@ alertmanager:
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /$2
     hosts:
-    - example.com
+    - crudevops.zapto.org
     paths:
     - /alertmanager(/|$)(.*)
     tls:
     - secretName: ssl-cert-production
       hosts:
-      - example.com
+      - crudevops.zapto.org
 
   alertmanagerSpec:
-    externalUrl: https://example.com/alertmanager
+    externalUrl: https://crudevops.zapto.org/alertmanager
     routePrefix: /
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: nfs-alertmanager
+          storageClassName: nfs-dyn-storageclass
           accessModes:
           - ReadWriteMany
           resources:
             requests:
               storage: 5Gi
+
 grafana:
   env:
-    GF_SERVER_ROOT_URL: https://example.com/grafana
+    GF_SERVER_ROOT_URL: https://crudevops.zapto.org/grafana
   adminPassword: prom-operator
   ingress:
     enabled: true
@@ -35,33 +36,33 @@ grafana:
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /$2
     hosts:
-    - example.com
+    - crudevops.zapto.org
     path: /grafana(/|$)(.*)
     tls:
     - secretName: ssl-cert-production
       hosts:
-      - example.com
+      - crudevops.zapto.org
 
 prometheus:
   ingress:
     enabled: true
     ingressClassName: nginx
     hosts:
-    - example.com
+    - crudevops.zapto.org
     paths:
     - /prometheus
     tls:
     - secretName: ssl-cert-production
       hosts:
-      - example.com
+      - crudevops.zapto.org
 
   prometheusSpec:
-    externalUrl: "https://example.com/prometheus"
+    externalUrl: "https://crudevops.zapto.org/prometheus"
     routePrefix: "/prometheus"
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: nfs-prometheus
+          storageClassName: nfs-dyn-storageclass
           accessModes:
             - ReadWriteMany
           resources:
