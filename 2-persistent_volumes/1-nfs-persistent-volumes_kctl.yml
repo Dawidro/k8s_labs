@@ -1,14 +1,15 @@
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: nfs-pvc-nginx
-  namespace: default
+  name: nfs-pv-nginx
 spec:
-  storageClassName: nfs-nginx
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
   accessModes:
     - ReadOnlyMany
-  volumeMode: Filesystem
-  resources:
-    requests:
-      storage: 1Gi
+  storageClassName: nfs-nginx
+  nfs:
+    path: /export/kubernetes/nginx_main
+    server: 192.168.1.99

@@ -5,21 +5,22 @@ metadata:
   name: kibana-ingress
   namespace: elastic-system
   annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - example.com
+    - crudevops.zapto.org
     secretName: ssl-cert-production
   rules:
-  - host: example.com
+  - host: crudevops.zapto.org
     http:
       paths:
       paths:
       - path: /kibana(/|$)(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: kibana-kb-http

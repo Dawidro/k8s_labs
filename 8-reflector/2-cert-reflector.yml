@@ -8,7 +8,7 @@ spec:
   secretName: ssl-cert-production
   commonName: k8s.crudevops.zapto.org
   issuerRef:
-    name: ssl-cert
+    name: letsencrypt-production
     kind: ClusterIssuer
     group: cert-manager.io
   secretTemplate:
