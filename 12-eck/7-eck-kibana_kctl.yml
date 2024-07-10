@@ -5,13 +5,10 @@ metadata:
   name: kibana
   namespace: elastic-system
 spec:
-  version: 8.9.2
+  version: 8.14.2
   count: 2
   elasticsearchRef:
     name: elastic-cluster
-  config:
-    server.rewriteBasePath: false
-    server.basePath: /kibana
   http:
     service:
       spec:
@@ -20,3 +17,40 @@ spec:
           - port: 443
             targetPort: 5601
             protocol: TCP
+  config:
+    server.rewriteBasePath: false
+    server.basePath: /kibana
+    xpack.fleet.agents.elasticsearch.hosts: ["https://elastic-cluster-es-http.default.svc:9200"]
+    xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-agent-http.default.svc:8220"]
+    xpack.fleet.packages:
+      - name: system
+        version: latest
+      - name: elastic_agent
+        version: latest
+      - name: fleet_server
+        version: latest
+    xpack.fleet.agentPolicies:
+      - name: Fleet Server on ECK policy
+        id: eck-fleet-server
+        namespace: default
+        monitoring_enabled:
+          - logs
+          - metrics
+        unenroll_timeout: 900
+        package_policies:
+        - name: fleet_server-1
+          id: fleet_server-1
+          package:
+            name: fleet_server
+      - name: Elastic Agent on ECK policy
+        id: eck-agent
+        namespace: default
+        monitoring_enabled:
+          - logs
+          - metrics
+        unenroll_timeout: 900
+        package_policies:
+          - name: system-1
+            id: system-1
+            package:
+              name: system
