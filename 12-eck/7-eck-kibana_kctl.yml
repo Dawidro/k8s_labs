@@ -32,7 +32,7 @@ spec:
     xpack.fleet.agentPolicies:
       - name: Fleet Server on ECK policy
         id: eck-fleet-server
-        namespace: default
+        namespace: elastic-system
         monitoring_enabled:
           - logs
           - metrics
@@ -44,7 +44,7 @@ spec:
             name: fleet_server
       - name: Elastic Agent on ECK policy
         id: eck-agent
-        namespace: default
+        namespace: elastic-system
         monitoring_enabled:
           - logs
           - metrics

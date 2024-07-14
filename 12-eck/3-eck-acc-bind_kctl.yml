@@ -45,7 +45,7 @@ metadata:
   name: elastic-agent-acc
 subjects:
 - kind: ServiceAccount
-  name: elastic-agent
+  name: elastic-agent-acc
   namespace: elastic-system
 roleRef:
   kind: ClusterRole
