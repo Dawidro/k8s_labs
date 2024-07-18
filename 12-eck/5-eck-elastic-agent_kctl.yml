@@ -8,8 +8,10 @@ spec:
   version: 8.14.2
   kibanaRef:
     name: kibana
+    namespace: elastic-system
   fleetServerRef:
     name: fleet-server
+    namespace: elastic-system
   mode: fleet
   policyID: eck-agent
   daemonSet:

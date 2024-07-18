@@ -7,6 +7,7 @@ spec:
   version: 8.14.2
   kibanaRef:
     name: kibana
+    namespace: elastic-system
   elasticsearchRefs:
   - name: elastic-cluster
   mode: fleet
