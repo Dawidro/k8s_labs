@@ -6,7 +6,8 @@ metadata:
   namespace: cert-manager
 spec:
   secretName: ssl-cert-production
-  commonName: k8s.crudevops.zapto.org
+  dnsNames:
+  - example.com
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
