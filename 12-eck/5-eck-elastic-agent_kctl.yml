@@ -3,15 +3,15 @@ apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
 metadata:
   name: elastic-agent
-  namespace: elastic-system
+  namespace: eck
 spec:
   version: 8.14.2
   kibanaRef:
     name: kibana
-    namespace: elastic-system
+    namespace: eck
   fleetServerRef:
     name: fleet-server
-    namespace: elastic-system
+    namespace: eck
   mode: fleet
   policyID: eck-agent
   daemonSet:

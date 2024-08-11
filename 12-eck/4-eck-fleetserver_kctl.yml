@@ -2,12 +2,12 @@ apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
 metadata:
   name: fleet-server
-  namespace: elastic-system
+  namespace: eck
 spec:
   version: 8.14.2
   kibanaRef:
     name: kibana
-    namespace: elastic-system
+    namespace: eck
   elasticsearchRefs:
   - name: elastic-cluster
   mode: fleet

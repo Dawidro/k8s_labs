@@ -3,7 +3,7 @@ apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
   name: kibana
-  namespace: elastic-system
+  namespace: eck
 spec:
   version: 8.14.2
   count: 2
@@ -20,8 +20,8 @@ spec:
   config:
     server.rewriteBasePath: false
     server.basePath: /kibana
-    xpack.fleet.agents.elasticsearch.hosts: ["https://elastic-cluster-es-http.elastic-system.svc.cluster.local:9200"]
-    xpack.fleet.agents.fleet_server.hosts: ["https://elastic-cluster-es-http.elastic-system.svc.cluster.local:8220"]
+    xpack.fleet.agents.elasticsearch.hosts: ["https://elastic-cluster-es-http.eck.svc.cluster.local:9200"]
+    xpack.fleet.agents.fleet_server.hosts: ["https://elastic-cluster-es-http.eck.svc.cluster.local:8220"]
     xpack.fleet.packages:
       - name: system
         version: latest
@@ -32,7 +32,7 @@ spec:
     xpack.fleet.agentPolicies:
       - name: Fleet Server on ECK policy
         id: eck-fleet-server
-        namespace: elastic-system
+        namespace: eck
         monitoring_enabled:
           - logs
           - metrics
@@ -44,7 +44,7 @@ spec:
             name: fleet_server
       - name: Elastic Agent on ECK policy
         id: eck-agent
-        namespace: elastic-system
+        namespace: eck
         monitoring_enabled:
           - logs
           - metrics

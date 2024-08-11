@@ -4,7 +4,7 @@
    - name: Install ECK Charts
      kubernetes.core.helm:
        name: eck-operator
-       namespace: elastic-system
+       namespace: eck
        create_namespace: true
        chart_ref: eck/eck-operator
        values_files:
