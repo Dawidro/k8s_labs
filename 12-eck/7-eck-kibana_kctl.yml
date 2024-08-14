@@ -17,6 +17,7 @@ spec:
           - port: 443
             targetPort: 5601
             protocol: TCP
+            name: https
   config:
     server.rewriteBasePath: false
     server.basePath: /kibana
