@@ -22,7 +22,7 @@ spec:
     server.rewriteBasePath: false
     server.basePath: /kibana
     xpack.fleet.agents.elasticsearch.hosts: ["https://elastic-cluster-es-http.eck.svc.cluster.local:9200"]
-    xpack.fleet.agents.fleet_server.hosts: ["https://elastic-cluster-es-http.eck.svc.cluster.local:8220"]
+    xpack.fleet.agents.fleet_server.hosts: ["fleet-server-agent-http.eck.svc.cluster.local:8220"]
     xpack.fleet.packages:
       - name: system
         version: latest
